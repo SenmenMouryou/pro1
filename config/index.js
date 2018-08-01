@@ -29,8 +29,9 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/api':{
-                target:'http://jsonplaceholder.typicode.com',
+                target:'http://localhost:8888',
                 changeOrigin:true,
+                secure: false,
                 pathRewrite:{
                     '/api':''
                 }

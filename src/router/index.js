@@ -48,8 +48,12 @@ export default new Router({
                 {
                     path: '/drag',
                     component: resolve => require(['../components/page/DragList.vue'], resolve)    // 拖拽列表组件
+                },
+                {
+                    path:'/signup',
+                    component: resolve => require(['../components/page/SignUp.vue'], resolve)
                 }
-            ]
+                ]
         },
         {
             path: '/login',
