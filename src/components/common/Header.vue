@@ -1,10 +1,10 @@
 <template>
     <div class="header">
-        <div class="logo">后台管理系统</div>
+        <div class="logo">{{isLogin}}</div>
         <div class="user-info">
             <el-dropdown trigger="click" @command="handleCommand">
                 <span class="el-dropdown-link">
-                    <img class="user-logo" src="../../../static/img/img.jpg">
+                    <img class="user-logo" :src="head">
                     {{username}}
                 </span>
                 <el-dropdown-menu slot="dropdown">
@@ -18,19 +18,38 @@
     export default {
         data() {
             return {
-                name: 'linxin'
+                name: '登录',
+                head: './static/img/img.jpg'
             }
         },
         computed:{
             username(){
                 let username = localStorage.getItem('ms_username');
                 return username ? username : this.name;
+            },
+            isLogin(){
+                let isLogin = localStorage.getItem('ms_isLogin');
+                return isLogin;
             }
         },
         methods:{
             handleCommand(command) {
                 if(command == 'loginout'){
-                    localStorage.removeItem('ms_username')
+                    console.log("Header.vue:"
+                        +"ms_username:"+localStorage.getItem('ms_username')+"\n"
+                        +"Header.username:"+this.username+"\n"
+                        +"ms_isLogin"+localStorage.getItem('ms_isLogin')+"\n"
+                        +"Header.isLogin"+this.isLogin+"\n"
+                    );
+                    localStorage.removeItem('ms_username');
+                    localStorage.setItem('ms_isLogin','false');
+                    console.log("Header.vue:"
+                        +"ms_username:"+localStorage.getItem('ms_username')+"\n"
+                        +"Header.username:"+this.username+"\n"
+                        +"ms_isLogin"+localStorage.getItem('ms_isLogin')+"\n"
+                        +"Header.isLogin"+this.isLogin+"\n"
+                    );
+
                     this.$router.push('/login');
                 }
             }

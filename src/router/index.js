@@ -7,7 +7,7 @@ export default new Router({
     routes: [
         {
             path: '/',
-            redirect: '/login'
+            redirect: '/readme'
         },
         {
             path: '/readme',
@@ -50,14 +50,10 @@ export default new Router({
                     component: resolve => require(['../components/page/DragList.vue'], resolve)    // 拖拽列表组件
                 },
                 {
-                    path:'/signup',
-                    component: resolve => require(['../components/page/SignUp.vue'], resolve)
+                    path:'/login',
+                    component: resolve => require(['../components/page/Login.vue'], resolve)
                 }
                 ]
-        },
-        {
-            path: '/login',
-            component: resolve => require(['../components/page/Login.vue'], resolve)
-        },
+        }
     ]
 })

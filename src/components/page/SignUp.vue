@@ -19,7 +19,7 @@
                 </el-form-item>
 
                 <el-form-item prop="passwordAgain" label="重复密码">
-                    <el-input type="password" v-model="form.passwordAgain"></el-input>
+                    <el-input type="password" v-model="passwordAgain"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="isMember" label="会员注册">
@@ -69,7 +69,7 @@
         data: function(){
             // 密码验证
             let validatorPassAgain = (rule, value, callback) => {
-                if (this.form.password!=this.form.passwordAgain) {
+                if (this.form.password!=this.passwordAgain) {
                     callback(new Error('密码不一致'))
                 } else {
                     callback()
@@ -80,13 +80,13 @@
                     nick_name:'',
                     email:'',
                     password:'',
-                    passwordAgain:'',
                     isMember:false,
                     student_id:'',
                     name:'',
                     sex:'1',
                     checkcode:''
                 },
+                passwordAgain:'',
                 url:'/api/user/register',
                 src: 'http://localhost:8888/user/authCode?a=11',
                 rules: {
@@ -148,7 +148,7 @@
                         this.$message.success('注册成功');
                     }else {
                         this.$message.error(data.data);
-                        this.$message.error('1123');
+                        this.$message.error('注册失败');
                     }
                 }), err => this.$message.error('添加出错'));
             }

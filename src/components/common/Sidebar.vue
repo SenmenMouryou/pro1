@@ -79,8 +79,8 @@
                     },
                     {
                         icon: 'el-icon-plus',
-                        index: 'signup',
-                        title: '注册'
+                        index: 'login',
+                        title: '登录'
                     }
                 ]
             }
