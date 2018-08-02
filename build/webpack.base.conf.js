@@ -10,7 +10,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: ['babel-polyfill','./src/main.js']
+    app: ['babel-polyfill','./authSrc/main.js']
   },
   output: {
     path: config.build.assetsRoot,
@@ -27,9 +27,9 @@ module.exports = {
     ],
     alias: {
       'vue$': 'vue/dist/vue.common.js',
-      'src': resolve('src'),
-      'assets': resolve('src/assets'),
-      'components': resolve('src/components')
+      'authSrc': resolve('src'),
+      'assets': resolve('authSrc/assets'),
+      'components': resolve('authSrc/components')
     }
   },
   module: {

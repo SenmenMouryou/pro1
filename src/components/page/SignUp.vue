@@ -1,10 +1,6 @@
 <template>
     <div>
-        <div class="crumbs">
-            <el-breadcrumb separator="/">
-                <el-breadcrumb-item><i class="el-icon-plus"></i> 注册</el-breadcrumb-item>
-            </el-breadcrumb>
-        </div>
+
         <div class="form-box">
             <el-form ref="form" :model="form" :rules="rules" label-width="80px">
 
@@ -19,7 +15,7 @@
                 </el-form-item>
 
                 <el-form-item prop="passwordAgain" label="重复密码">
-                    <el-input type="password" v-model="passwordAgain"></el-input>
+                    <el-input type="password" v-model="form.passwordAgain"></el-input>
                 </el-form-item>
 
                 <el-form-item prop="isMember" label="会员注册">
@@ -42,11 +38,12 @@
 
                 <el-form-item label="验证码" prop="checkcode">
                     <div>
-                        <el-col :span="12">
-                            <el-input v-model="form.checkcode" placeholder="请输入"></el-input>
+                        <el-col :span="11">
+                            <el-input v-model="form.authcode" placeholder="点击图片刷新"></el-input>
                         </el-col>
-                        <el-col :span="12">
-                            <img :src="src">
+                        <el-col :span="2"><img src=""/></el-col>
+                        <el-col :span="11">
+                            <img :src.sync="authSrc" @click="updateAuthCode()">
                         </el-col>
 
                     </div>
@@ -69,7 +66,7 @@
         data: function(){
             // 密码验证
             let validatorPassAgain = (rule, value, callback) => {
-                if (this.form.password!=this.passwordAgain) {
+                if (this.form.password!=this.form.passwordAgain) {
                     callback(new Error('密码不一致'))
                 } else {
                     callback()
@@ -84,11 +81,12 @@
                     student_id:'',
                     name:'',
                     sex:'1',
-                    checkcode:''
+                    authcode:'',
+                    passwordAgain:'',
                 },
-                passwordAgain:'',
+
                 url:'/api/user/register',
-                src: 'http://localhost:8888/user/authCode?a=11',
+                authSrc: 'http://localhost:8888/user/authCode?a=11',
                 rules: {
                     nick_name: [
                         { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -115,7 +113,7 @@
                         { required: true, message: '请输入学号', trigger: 'blur'},
                         { pattern: /^\d{13}$/, message: '请输入真实学号',trigger:'blur' }
                     ],
-                    checkcode:[
+                    authcode:[
                         { required: true, message: '请输入验证码', trigger:'blur'}
                     ]
 
@@ -123,6 +121,9 @@
 
                 }
             }
+        },
+        computed:{
+
         },
         methods: {
             reset(formName){
@@ -133,7 +134,7 @@
                 const self = this;
                 self.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.putDevice(this.form);
+                        this.updateDevice(this.form);
                         console.log("form data submit");
 
                     } else {
@@ -142,15 +143,17 @@
                     }
                 });
             },
-            putDevice(form) {
+            updateDevice(form) {
                 this.$http.post(this.url, form).then((form) => form.json().then((data) => {
                     if (data.code == 200) {
                         this.$message.success('注册成功');
                     }else {
                         this.$message.error(data.data);
-                        this.$message.error('注册失败');
                     }
                 }), err => this.$message.error('添加出错'));
+            },
+            updateAuthCode(){
+                this.authSrc='http://localhost:8888/user/authCode?a='+Math.random()*1000000;
             }
         }
     }

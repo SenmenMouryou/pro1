@@ -8,6 +8,9 @@ import 'element-ui/lib/theme-default/index.css';    // 默认主题
 // import '../static/css/theme-green/index.css';       // 浅绿色主题
 import "babel-polyfill";
 
+import gloabal_ from './components/Gloabal'
+Vue.prototype.GLOBAL = gloabal_
+
 Vue.use(ElementUI);
 Vue.use(VueResource);
 Vue.prototype.$axios = axios;

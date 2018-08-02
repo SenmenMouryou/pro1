@@ -76,11 +76,6 @@
                         icon: 'el-icon-upload2',
                         index: 'drag',
                         title: '拖拽'
-                    },
-                    {
-                        icon: 'el-icon-plus',
-                        index: 'login',
-                        title: '登录'
                     }
                 ]
             }

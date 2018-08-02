@@ -8,6 +8,7 @@
                     {{username}}
                 </span>
                 <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="login">登录</el-dropdown-item>
                     <el-dropdown-item command="loginout">退出</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
@@ -34,23 +35,21 @@
         },
         methods:{
             handleCommand(command) {
-                if(command == 'loginout'){
-                    console.log("Header.vue:"
+                if(command=='login'){
+                    this.$router.push('/login');
+                }
+                else if(command == 'loginout'){
+                    /*console.log("Header.vue:"
                         +"ms_username:"+localStorage.getItem('ms_username')+"\n"
                         +"Header.username:"+this.username+"\n"
                         +"ms_isLogin"+localStorage.getItem('ms_isLogin')+"\n"
                         +"Header.isLogin"+this.isLogin+"\n"
-                    );
+                    );*/
                     localStorage.removeItem('ms_username');
                     localStorage.setItem('ms_isLogin','false');
-                    console.log("Header.vue:"
-                        +"ms_username:"+localStorage.getItem('ms_username')+"\n"
-                        +"Header.username:"+this.username+"\n"
-                        +"ms_isLogin"+localStorage.getItem('ms_isLogin')+"\n"
-                        +"Header.isLogin"+this.isLogin+"\n"
-                    );
 
-                    this.$router.push('/login');
+                    this.$router.push('/readme');
+                    location.reload();
                 }
             }
         }
